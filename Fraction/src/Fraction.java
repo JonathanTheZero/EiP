@@ -5,8 +5,8 @@ public class Fraction {
 	private int denominator;
 
 	public Fraction(int nominator, int denominator) {
-		if (nominator == 0) {
-			nominator = 1;
+		if (denominator == 0) {
+			denominator = 1;
 		}
 		this.nominator = nominator;
 		this.denominator = denominator;
