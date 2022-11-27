@@ -4,7 +4,7 @@ public class Fraction {
 	private int nominator;
 	private int denominator;
 
-	Fraction(int nominator, int denominator) {
+	public Fraction(int nominator, int denominator) {
 		if (nominator == 0) {
 			nominator = 1;
 		}
@@ -12,7 +12,7 @@ public class Fraction {
 		this.denominator = denominator;
 	}
 
-	Fraction(int n) {
+	public Fraction(int n) {
 		nominator = n;
 		denominator = 1;
 	}
@@ -34,7 +34,7 @@ public class Fraction {
 		if(summand.getDenominator() == denominator) {
 			nominator += summand.getNominator();
 		} else {
-			nominator = nominator * summand.getDenominator() + summand.getNominator();
+			nominator = nominator * summand.getDenominator() + summand.getNominator() * denominator;
 			denominator *= summand.getDenominator();
 		}
 	}
