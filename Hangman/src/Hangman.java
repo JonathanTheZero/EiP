@@ -49,7 +49,7 @@ public class Hangman {
 	public boolean isWon() {
 		return currentWord.equalsIgnoreCase(word);
 	}
-	
+
 	public boolean isGameOver() {
 		return MAX_WRONG_GUESSES == wrongGuesses;
 	}
