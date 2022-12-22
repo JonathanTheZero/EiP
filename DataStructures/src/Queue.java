@@ -1,11 +1,16 @@
-public interface Queue {
-    final int EMPTY_VALUE = -1;
+//Angepasst für eine generische Implementierung
+public interface Queue<T> {
+	/**
+	 * 
+	 * @return Default Value für Typ T
+	 */
+	T EMPTY_VALUE();
 
     /**
      * Fuegt den Wert value (am Ende) in die Wartschlange ein.
      * @param value
      */
-    void append(int value);
+    void append(T value);
 
     /**
      * Prueft, ob die Warteschlange leer ist
@@ -24,11 +29,11 @@ public interface Queue {
      * Wenn die Liste leer ist, wird EMPTY_VALUE zurückgegeben.
      * @return Wert des ersten Elements
      */
-    int peek();
+    T peek();
 
     /**
      * Erzeugt einen Array mit den Werten der Warteschlage.
      * @return frischer Array mit den Werten der Warteschlange.
      */
-    int[] toArray();
+    T[] toArray();
 }
