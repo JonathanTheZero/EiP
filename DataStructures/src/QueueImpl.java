@@ -1,50 +1,86 @@
+import java.lang.reflect.Array;
 
-public class QueueImpl implements Queue {
+public class QueueImpl<T> implements Queue<T> {
+	private Class<T> classInfo;
+	private QueueElement<T> head;
+	private QueueElement<T> tail;
 
-	private int[] values = new int[0];
+	public static void main(String... args) {
+		QueueImpl<Integer> queue = new QueueImpl<Integer>(Integer.class);
+		queue.append(1);
+		queue.append(2);
+		queue.append(3);
+		queue.append(4);
+		
+		Integer[] x = queue.toArray();
+		for (Integer i : x) {
+			System.out.println(i);
+		}
+	}
 
-	public QueueImpl() {
+	public QueueImpl(Class<T> c) {
+		classInfo = c;
 	}
 
 	@Override
-	public void append(int value) {
-		int[] newVals = new int[values.length + 1];
-		for (int i = 0; i < values.length; ++i) {
-			newVals[i] = values[i];
+	public void append(T value) {
+		QueueElement<T> newTail = new QueueElement<T>(value);
+		if (head == null) {
+			head = newTail;
+		} else {
+			tail.setNext(newTail);
 		}
-		newVals[values.length] = value;
-		values = newVals;
+		tail = newTail;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return values.length == 0;
+		return head == null;
 	}
 
 	@Override
 	public void remove() {
-		if (values.length == 0) {
+		if (isEmpty())
 			return;
-		}
-		int[] newVals = new int[values.length - 1];
-		for (int i = 0; i < values.length; ++i) {
-			newVals[i] = values[i + 1];
-		}
-		values = newVals;
+		QueueElement<T> newHead = head.getNext();
+		head = newHead;
 	}
 
 	@Override
-	public int peek() {
-		return values.length == 0 ? Queue.EMPTY_VALUE : values[0];
+	public T peek() {
+		return isEmpty() ? EMPTY_VALUE() : head.getContent();
 	}
 
 	@Override
-	public int[] toArray() {
-		int[] copy = new int[values.length];
-		for (int i = 0; i < values.length; ++i) {
-			copy[i] = values[i];
+	public T[] toArray() {
+		// fuck you Java, all my homies use C#
+		@SuppressWarnings("unchecked")
+		T[] returnArray = (T[]) Array.newInstance(classInfo, getSize());
+
+		QueueElement<T> current = head;
+		int i = 0;
+		returnArray[i++] = current.getContent();
+		while (current.getNext() != null) {
+			current = current.getNext();
+			returnArray[i++] = current.getContent();
 		}
-		return copy;
+
+		return returnArray;
+	}
+
+	private int getSize() {
+		int size = 1;
+		QueueElement<T> current = head;
+		while (current.getNext() != null) {
+			size++;
+			current = current.getNext();
+		}
+		return size;
+	}
+
+	@Override
+	public T EMPTY_VALUE() {
+		return null;
 	}
 
 }
