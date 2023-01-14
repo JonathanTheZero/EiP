@@ -29,5 +29,6 @@ public class ShapeApplication {
 				System.out.println();
 			}
 		}
+		scanner.close();
 	}
 }
