@@ -45,7 +45,7 @@ public class Exam {
 	}
 
 	public void printQuestions() {
-		System.out.println("Prüfung " + name + " (" + year + "):");
+		System.out.println("Prüfung " + name + " (" + year + ", " + getSumOfPoints() + " Punkte):");
 		for (Question q : questions) {
 			System.out.println(q.getText() + " | " + q.getPoints());
 		}
